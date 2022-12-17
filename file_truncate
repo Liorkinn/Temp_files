@@ -1,0 +1,6 @@
+    QString ss = "my";
+    QFile file("/home/liora/bast_stat");
+    QTextStream stream(&file);
+    if (file.open(QIODevice::WriteOnly | QIODevice::Truncate)){
+        stream << "\"" + ss + "\"\n\"\"\n\"" + ss +"\"";
+      file.close();
