@@ -4,3 +4,22 @@
     if (file.open(QIODevice::WriteOnly | QIODevice::Truncate)){
         stream << "\"" + ss + "\"\n\"\"\n\"" + ss +"\"";
       file.close();
+
+QFile file(PATH_FILE); QString str;
+           QTextStream in(&file);
+           ui->tableWidget->setColumnCount                                   ( 3 );
+           ui->tableWidget->setShowGrid                                    ( true );
+           ui->tableWidget->setHorizontalHeaderLabels                      ( description );
+           ui->tableWidget->horizontalHeader()->setStretchLastSection      ( true );
+
+           if(file.open(QIODevice::ReadOnly)) {
+               while(!in.atEnd()){
+                   str = file.readLine();
+                   ui->tableWidget->insertRow(0);
+                   ui->tableWidget->setItem(0,0, new QTableWidgetItem(str.mid(0, str.indexOf("\n"))));
+               }
+
+           }else {
+               qDebug() << "not open";
+           }
+           }
