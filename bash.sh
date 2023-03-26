@@ -30,3 +30,5 @@ QTDIR = /home/liora/Qt/5.15.2/gcc_64
 /home/liora/Qt/5.15.2/gcc_64 путь к bin там должен быть он а также таам есть папка плагинс - это qtdir
 
 cat test | grep replication | sed 's|#.*||g' | sed '/^$/d' |  awk '{print $4}' >> parse
+
+cat 123 | grep "pg\|zf"
