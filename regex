@@ -1,0 +1,18 @@
+#include <iostream>
+#include <regex>
+#include <string>
+
+int main() {
+    std::string str = "db://test/fas/fasf/fsa";
+    std::regex regex("db://([^/]+)/([^/]+)/([^/]+)/([^/]+)");
+
+    std::smatch matches;
+    if (std::regex_match(str, matches, regex)) {
+        std::cout << "smatch[1]: " << matches.str(1) << std::endl;
+        std::cout << "smatch[2]: " << matches.str(2) << std::endl;
+        std::cout << "smatch[3]: " << matches.str(3) << std::endl;
+        std::cout << "smatch[4]: " << matches.str(4) << std::endl;
+    }
+
+    return 0;
+}
