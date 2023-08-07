@@ -1,4 +1,4 @@
-QString XmlParser::getPortByName(QString name)
+QString XmlParser::getPortByName(QString attribute, QString name)
 {
     QDomNodeList portList = root.elementsByTagName("database");
     for (int i = 0; i < portList.count(); i++)
@@ -7,7 +7,7 @@ QString XmlParser::getPortByName(QString name)
         QString portName = portElement.attribute("name");
 
         if(portName == name)
-            return portElement.attribute("port");
+            return portElement.attribute(attribute);
 
     }
     return "";
