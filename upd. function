@@ -1,0 +1,14 @@
+QString XmlParser::getPortByName(QString name)
+{
+    QDomNodeList portList = root.elementsByTagName("hostname");
+    for (int i = 0; i < portList.count(); i++)
+    {
+        QDomElement portElement = portList.at(i).toElement();
+        QString portName = portElement.firstChildElement("name").text();
+        if (portName == name)
+        {
+            return portElement.firstChildElement("value").text();
+        }
+    }
+    return "";
+}
