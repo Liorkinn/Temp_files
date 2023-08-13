@@ -7,3 +7,7 @@ COUNT=$(cat 123 | grep host | grep replication | grep "127.0.0.1/32" | wc -l)
 for i in $(seq 1 $COUNT); do
     sed -i "s|$(cat 123 | grep host | grep replication | grep 127.0.0.1/32 | head -n1 | tail -n1)|host    replication    $IP    md5|" 123
 done
+
+
+
+du -sh "/usr/lib/x86_64-linux-gnu" | awk {'print $1'}
