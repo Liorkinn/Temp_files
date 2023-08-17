@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# Конфигурационные данные
+pg_username="your_username"            # Имя пользователя PostgreSQL
+pg_password="your_password"            # Пароль пользователя PostgreSQL
+pg_hostname="localhost"                # Имя хоста для подключения к PostgreSQL
+pg_port="5432"                         # Порт для подключения к PostgreSQL
+database_name="your_database"           # Имя базы данных
+backup_dir="/path/to/backup/directory"  # Каталог для сохранения резервной копии
+
+# Генерация имени файла резервной копии
+backup_file="$backup_dir/backup_$(date +%Y-%m-%d_%H-%M-%S).sql"
+
+# Функция, которая выполняет резервное копирование схемы с данными
+backup_schema_data() {
+    pg_dump -U "$pg_username" -h "$pg_hostname" -p "$pg_port" -F p -b -v -f "$backup_file" -n "$1" "$database_name"
+}
+
+# Проверка наличия каталога для сохранения резервных копий
+if [ ! -d "$backup_dir" ]; then
+    echo "Каталог для сохранения резервных копий не существует. Создайте каталог: $backup_dir"
+    exit 1
+fi
+
+# Проверка доступности PostgreSQL
+if ! command -v pg_dump >/dev/null 2>&1; then
+    echo "Утилита pg_dump не найдена. Установите PostgreSQL или убедитесь, что она доступна в системном пути."
+    exit 1
+fi
+
+# Подключение к PostgreSQL и выполнение резервного копирования
+schemas=("schema1" "schema2" "schema3")  # Замените на нужные вам схемы
+
+for schema in "${schemas[@]}"; do
+    echo "Выполняется резервное копирование схемы '$schema'..."
+    backup_schema_data "$schema"
+    echo "Резервная копия схемы '$schema' сохранена в файле: $backup_file"
+done
