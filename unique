@@ -1,0 +1,12 @@
+QStringList MainWindow::removeDuplicates(const QStringList& list)
+{
+    QStringList uniqueList;
+
+    for (const QString& item : list) {
+        if (!uniqueList.contains(item)) {
+        uniqueList.append(item);
+    }
+}
+
+    return uniqueList;
+}
