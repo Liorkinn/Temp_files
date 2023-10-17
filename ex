@@ -17,3 +17,5 @@ QProcess PROCESS;
         return;
 
     QString INTERFACES_NAMES = PROCESS.readAllStandardOutput();
+
+sudo pg_ctlcluster 11 main start --skip-systemctl-redirect
