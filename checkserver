@@ -1,0 +1,9 @@
+#!/bin/bash
+
+SERVER="example.com" # Замените на ваш сервер или IP-адрес
+
+if nc -z -w 5 $SERVER 22 && nc -z -w 5 $SERVER 80; then
+  echo "Сервер доступен"
+else
+  echo "Сервер недоступен"
+fi
