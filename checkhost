@@ -1,0 +1,9 @@
+#!/bin/bash
+
+SERVER="192.168.123.21" 
+
+if nc -z -w 5 $SERVER 22 && nc -z -w 5 $SERVER 80; then
+  echo "Сервер доступен"
+else
+  echo "Сервер недоступен"
+fi
