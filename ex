@@ -19,3 +19,4 @@ QProcess PROCESS;
     QString INTERFACES_NAMES = PROCESS.readAllStandardOutput();
 
 sudo pg_ctlcluster 11 main start --skip-systemctl-redirect
+for i in {1..2}; do systemctl start postgresql; sleep 5; done
