@@ -1,0 +1,23 @@
+#!/bin/bash
+
+archive_dir="/tmp"
+target_dir="/mnt/Indata"
+
+# Получаем список файлов в порядке убывания по времени создания
+archives=$(ls -t "$archive_dir")
+
+# Цикл по каждому файлу
+for archive in $archives; do
+    # Создаем полный путь к архиву
+    archive_path="${archive_dir}/${archive}"
+    
+    # Проверяем, является ли файл архивом
+    if [[ $archive_path == *.tar.gz || $archive_path == *.tar || $archive_path == *.tgz ]]; then
+        echo "Разархивируем $archive..."
+        
+        # Разархивируем архив в целевую папку
+        tar -xf "$archive_path" -C "$target_dir"
+        
+        echo "$archive разархивирован."
+    fi
+done
