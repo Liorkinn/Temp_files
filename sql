@@ -94,3 +94,5 @@ pg_dump -Fc -h host -p port -U username -W mydatabase > mydatabase.dump
 10. Резервирование базы данных с использованием SSL:
 
 pg_dump -Fc -h host -p port -U username --sslmode require mydatabase > mydatabase.dump
+
+https://drive.google.com/file/d/1kfjxQ7TzxwgStjHiR_S94t79jPlln8VW/view?usp=sharing
