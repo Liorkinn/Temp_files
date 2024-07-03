@@ -1,0 +1,23 @@
+function get_status_cluster() {
+    local max_retries=15
+    local retry_interval=3  # интервал в секундах между попытками
+    local retries=0
+
+    while [ $retries -lt $max_retries ]; do
+        STATE=$(psql -p $PG_PORT -h $1 -U postgres -tAc "SELECT pg_is_in_recovery();")
+
+        if [ "$STATE" == "f" ]; then
+            echo "MASTER"
+            return 0
+        elif [ "$STATE" == "t" ]; then
+            echo "SLAVE"
+            return 0
+        else
+            sleep $retry_interval
+            retries=$((retries + 1))
+        fi
+    done
+
+    echo "FAULT"
+    return 1
+}
