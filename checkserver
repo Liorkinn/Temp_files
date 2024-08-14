@@ -7,3 +7,35 @@ if nc -z -w 5 $SERVER 22 && nc -z -w 5 $SERVER 80; then
 else
   echo "Сервер недоступен"
 fi
+
+
+#!/bin/bash 
+
+TAR_NAME="backup_database.tar.gz"
+DATABASE_PART="/mnt/db"
+DATABASE_PATH="$DATABASE_PART/postgresql/9.6/main"
+PG_POSTGRES_BIN="/usr/lib/postgresql/9.6/bin"
+
+MASTER_HOSTNAME="192.168.1.100"
+SLAVE_HOSTNAME="192.168.1.101"
+
+function recovery_database()
+{
+  if [ -d $DATABASE_PATH ]; then
+      rm -r $DATABASE_PATH
+  fi
+  tar -xzf $DATABASE_PART/$TAR_NAME -C /mnt/db/postgresql/9.6
+  sleep 5 
+  systemctl start postgresql@9.6-main
+}
+
+function create_slave()
+{
+  ssh $SLAVE_HOSTNAME "rm -r $DATABASE_PATH"
+  ssh $SLAVE_HOSTNAME "команда бэкапа" 
+  sleep 2 
+  systemctl start postgresql@9.6-main
+}
+
+recovery_database
+create_slave
